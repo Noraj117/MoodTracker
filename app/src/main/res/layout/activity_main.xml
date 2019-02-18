@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_sage"
-    tools:context="com.collet.alexandre.moodtracker.MainActivity">
+    tools:context="com.collet.alexandre.moodtracker.controller.MainActivity">
 
     <ImageView
         android:id="@+id/main_activity_img"

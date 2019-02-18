@@ -1,7 +1,9 @@
-package com.collet.alexandre.moodtracker;
+package com.collet.alexandre.moodtracker.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.collet.alexandre.moodtracker.R;
 
 public class MainActivity extends AppCompatActivity {
 
