@@ -2,6 +2,8 @@ package com.collet.alexandre.moodtracker.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +21,11 @@ import android.widget.RelativeLayout;
 
 
 import com.collet.alexandre.moodtracker.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,14 +89,28 @@ public class MainActivity extends AppCompatActivity {
     private void addComment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        final EditText edittext = new EditText(MainActivity.this);
+        final EditText commentaire = new EditText(MainActivity.this);
 
-        builder.setMessage("Commentaire");
-        builder.setView(edittext);
-        builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.strCommentaire);
+        builder.setView(commentaire);
+        builder.setPositiveButton(R.string.strValider, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-                SharedPreferencesUtils.saveMessage(MainActivity.this, edittext.getText().toString());
+
+                String monCommentaireSaisi = commentaire.getText().toString();
+                int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
+
+                Set<String> set = new HashSet<String>();
+                set.add(color + "");
+                set.add(monCommentaireSaisi);
+
+                Date date = new Date();
+                String maDateFormatee = new SimpleDateFormat("dd/MM:yyyy").format(date);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putStringSet(maDateFormatee, set);
+                editor.commit();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
