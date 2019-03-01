@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
-import com.collet.alexandre.moodtracker.HistoryActivity;
+
 import com.collet.alexandre.moodtracker.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
                     R.drawable.smiley_happy,
                     R.drawable.smiley_super_happy}};
     private static final int SWIPE_MIN_DISTANCE = 150;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     private int index = 3;
     private GestureDetectorCompat mDetector;
 
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         mRelativeLayout = (RelativeLayout) findViewById(R.id.main_activity_layout_background);
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
-        
         mCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,20 +76,22 @@ public class MainActivity extends AppCompatActivity {
         this.mDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-
+    /*
+    This method is for add a comment of the actual mood
+     */
     private void addComment() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        final EditText edittext = new EditText(this);
+        final EditText edittext = new EditText(MainActivity.this);
 
-        builder.setMessage("Commentaire")
-                .setView(edittext)
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+        builder.setMessage("Commentaire");
+        builder.setView(edittext);
+        builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                SharedPreferencesUtils.saveMessage(MainActivity.this, edittext.getText().toString());
+            }
+        });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
