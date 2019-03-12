@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 
 
 import com.collet.alexandre.moodtracker.R;
+import com.collet.alexandre.moodtracker.model.MoodDataStorage;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -100,16 +102,24 @@ public class MainActivity extends AppCompatActivity {
                 String monCommentaireSaisi = commentaire.getText().toString();
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
-                Set<String> set = new HashSet<String>();
+                MoodDataStorage mood = new MoodDataStorage();
+                mood.setCommentaire(monCommentaireSaisi);
+                mood.setCouleur(color);
+
+                Gson gson = new Gson();
+
+                String monGson = gson.toJson(mood);
+
+               /* Set<String> set = new HashSet<String>();
                 set.add(color + "");
-                set.add(monCommentaireSaisi);
+                set.add(monCommentaireSaisi);*/
 
                 Date date = new Date();
                 String maDateFormatee = new SimpleDateFormat("dd/MM:yyyy").format(date);
 
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putStringSet(maDateFormatee, set);
+                editor.putString(maDateFormatee, monGson);
                 editor.commit();
             }
         });
