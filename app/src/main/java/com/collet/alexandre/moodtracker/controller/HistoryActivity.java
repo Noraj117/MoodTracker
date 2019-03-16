@@ -16,15 +16,21 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.collet.alexandre.moodtracker.model.MoodDataStorage;
+import com.collet.alexandre.moodtracker.view.MoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+
+    private ListView mListView;
+    private MoodAdapter lAdapter;
 
 
     @Override
@@ -35,14 +41,29 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         SharedPreferences settings = getSharedPreferences("humeurFile", 0);
         MoodDataStorage mood;
         Gson gson = new Gson();
+        Date date = new Date();
+
+        mListView = (ListView) findViewById(R.id.moodListXml);
+        ArrayList<MoodDataStorage> moodList = new ArrayList<>();
+        moodList.add(new MoodDataStorage(1,"Il y a une semaine"));
+        moodList.add(new MoodDataStorage(2,"Il y a 6 jours"));
+        moodList.add(new MoodDataStorage(3,"Il y a 5 jours"));
+        moodList.add(new MoodDataStorage(4,"Il y a 4 jours"));
+        moodList.add(new MoodDataStorage(5,"Il y a 3 jours"));
+        moodList.add(new MoodDataStorage(6,"Avant-hier"));
+        moodList.add(new MoodDataStorage(7,"Hier"));
+
+        lAdapter = new MoodAdapter(this,moodList);
+        mListView.setAdapter(lAdapter);
 
         for(int i=0; i<7; i++) {
 
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, -i);
+            cal.setTime(date);
+            cal.add(Calendar.DAY_OF_MONTH, -i);
             SimpleDateFormat format1 = new SimpleDateFormat("dd/mm/yyyy");
             String maDateFormatee = format1.format(cal.getTime());
-            String monGson = settings.getString(maDateFormatee, null);
+            String monGson = settings.getString("11/03/2019", null);
 
 
             if (monGson != null) {
@@ -51,6 +72,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
                 }.getType();
                 mood = gson.fromJson(monGson, type);
                 Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
+                moodList.add(new MoodDataStorage(mood.getCouleur(), mood.getCommentaire()));
 
             }
         }

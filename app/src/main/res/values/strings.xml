@@ -2,4 +2,6 @@
     <string name="app_name">MoodTracker</string>
     <string name="strCommentaire">Commentaire</string>
     <string name="strValider">Valider</string>
+    <string name="toast_text">toast_text</string>
+    <string name="comment_icon">comment_icon</string>
 </resources>
