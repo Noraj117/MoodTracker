@@ -1,6 +1,6 @@
 package com.collet.alexandre.moodtracker.model;
 
-public class MoodItemList {
+/*public class MoodItemList {
     private int mColor;
     private int mSmileyValue;
     private String mComment;
@@ -38,7 +38,7 @@ public class MoodItemList {
      * This method is using a trick to update the "date value"
      * We get the item position into the value and we return the string of this position
      * */
-    public String getDate(int value) {
+   /* public String getDate(int value) {
         String dayTab[] = {"Hier", "Avant-hier",
                 "trois jours", "quatre jours", "cinq jours", "six jours", "une semaine"};
         mDate = dayTab[value];
@@ -49,4 +49,4 @@ public class MoodItemList {
         return mDate;
     }
 
-}
+}*/

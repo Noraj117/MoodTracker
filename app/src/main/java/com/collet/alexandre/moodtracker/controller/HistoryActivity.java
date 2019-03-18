@@ -50,7 +50,6 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         SharedPreferences settings = getSharedPreferences("humeurFile", 0);
         MoodDataStorage mood;
         Gson gson = new Gson();
-        Date date = new Date();
 
         mListView = (ListView) findViewById(R.id.moodListXml);
         ArrayList<MoodDataStorage> moodList = new ArrayList<>();
@@ -67,15 +66,18 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         lAdapter = new MoodAdapter(this,moodList);
         mListView.setAdapter(lAdapter);
 
-        for(int i=0; i<7; i++) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy ");
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String[] days = new String[6];
+        days[0] = sdf.format(date);
 
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.add(Calendar.DAY_OF_MONTH, -i);
-            SimpleDateFormat format1 = new SimpleDateFormat("dd/mm/yyyy");
-            String maDateFormatee = format1.format(cal.getTime());
-            String monGson = settings.getString("11/03/2019", null);
-
+        for(int i = 1; i < 6; i++){
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+            date = cal.getTime();
+            days[i] = sdf.format(date);
+        }
+            String monGson = settings.getString(String.valueOf(date), null);
 
             if (monGson != null) {
                 mood = new MoodDataStorage();
@@ -87,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
 
             }
         }
-}
+
 
 
     @Override
@@ -95,3 +97,5 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
 
     }
 }
+
+
