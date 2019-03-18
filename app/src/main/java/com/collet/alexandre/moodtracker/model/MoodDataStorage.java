@@ -2,33 +2,40 @@ package com.collet.alexandre.moodtracker.model;
 
 public class MoodDataStorage {
 
+    private int Couleur;
+    private String Commentaire;
+
+    public MoodDataStorage(int couleur, String commentaire) {
+        this.Couleur = couleur;
+        this.Commentaire = commentaire;
+    }
+
     public MoodDataStorage() {
 
     }
 
-    public MoodDataStorage(int couleur, String commentaire) {
-        this.couleur = couleur;
-        this.commentaire = commentaire;
-    }
-
-    private int couleur;
-    private String commentaire;
 
     public int getCouleur() {
-        return couleur;
+        return Couleur;
     }
 
     public void setCouleur(int couleur) {
-        this.couleur = couleur;
+        this.Couleur = couleur;
     }
 
     public String getCommentaire() {
-        return commentaire;
+        return Commentaire;
     }
 
     public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
+        this.Commentaire = commentaire;
     }
 
-
+    @Override
+    public String toString() {
+        return "MoodDataStorage{" +
+                "couleur=" + Couleur +
+                ", commentaire='" + Commentaire + '\'' +
+                '}';
+    }
 }

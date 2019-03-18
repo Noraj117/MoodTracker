@@ -17,9 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.view.View;
+
+
 
 import com.collet.alexandre.moodtracker.model.MoodDataStorage;
 import com.collet.alexandre.moodtracker.view.MoodAdapter;
@@ -31,6 +34,12 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
 
     private ListView mListView;
     private MoodAdapter lAdapter;
+    public static final int[][] LIST_COLOR = {
+            {R.color.faded_red,
+                    R.color.warm_grey,
+                    R.color.cornflower_blue_65,
+                    R.color.light_sage,
+                    R.color.banana_yellow}};
 
 
     @Override
@@ -52,6 +61,8 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         moodList.add(new MoodDataStorage(5,"Il y a 3 jours"));
         moodList.add(new MoodDataStorage(6,"Avant-hier"));
         moodList.add(new MoodDataStorage(7,"Hier"));
+
+
 
         lAdapter = new MoodAdapter(this,moodList);
         mListView.setAdapter(lAdapter);
@@ -78,7 +89,9 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         }
 }
 
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
