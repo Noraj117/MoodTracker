@@ -36,8 +36,8 @@ public class MoodAdapter extends ArrayAdapter<MoodDataStorage> {
 
         MoodDataStorage currentMood = moodList.get(position);
 
-        TextView txtColor = (TextView) listItem.findViewById(R.id.item_history_toast);
-        txtColor.setText(currentMood.getCouleur()+"");
+        TextView txtColor = (TextView) listItem.findViewById(R.id.item_history_text);
+        txtColor.setText (currentMood.getCouleur()+"");
 
         TextView txtCommentaire = (TextView) listItem.findViewById(R.id.item_history_text);
         txtCommentaire.setText(currentMood.getCommentaire());

@@ -5,7 +5,7 @@ public class MoodDataStorage {
     private int Couleur;
     private String Commentaire;
 
-    public MoodDataStorage(int couleur, String commentaire) {
+    public MoodDataStorage(int couleur, String commentaire ) {
         this.Couleur = couleur;
         this.Commentaire = commentaire;
     }
@@ -13,7 +13,6 @@ public class MoodDataStorage {
     public MoodDataStorage() {
 
     }
-
 
     public int getCouleur() {
         return Couleur;
@@ -34,8 +33,8 @@ public class MoodDataStorage {
     @Override
     public String toString() {
         return "MoodDataStorage{" +
-                "couleur=" + Couleur +
-                ", commentaire='" + Commentaire + '\'' +
+                "Couleur=" + Couleur +
+                ", Commentaire='" + Commentaire + '\'' +
                 '}';
     }
 }

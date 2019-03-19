@@ -5,9 +5,12 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.collet.alexandre.moodtracker.R;
@@ -29,7 +32,9 @@ import com.collet.alexandre.moodtracker.view.MoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
+public class HistoryActivity extends MainActivity implements AdapterView.OnItemClickListener {
 
 
     private ListView mListView;
@@ -90,12 +95,13 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
             }
         }
 
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        ListView listView = (ListView) parent.getAdapter().getItem(position);
+        Intent intent = new Intent(HistoryActivity.this, MoodDataStorage.class);
+        String message = "";
+        intent.putExtra(toString(), message);
+        startActivity(intent);
     }
 }
-
 
