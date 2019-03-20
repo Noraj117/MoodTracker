@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +29,12 @@ import android.view.View;
 
 
 import com.collet.alexandre.moodtracker.model.MoodDataStorage;
+import com.collet.alexandre.moodtracker.model.MoodList;
 import com.collet.alexandre.moodtracker.view.MoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
-public class HistoryActivity extends MainActivity implements AdapterView.OnItemClickListener {
+public class HistoryActivity extends AppCompatActivity {
 
 
     private ListView mListView;
@@ -58,7 +58,7 @@ public class HistoryActivity extends MainActivity implements AdapterView.OnItemC
 
         mListView = (ListView) findViewById(R.id.moodListXml);
         ArrayList<MoodDataStorage> moodList = new ArrayList<>();
-        moodList.add(new MoodDataStorage(1,"Il y a une semaine"));
+        /*moodList.add(new MoodDataStorage(1,"Il y a une semaine"));
         moodList.add(new MoodDataStorage(2,"Il y a 6 jours"));
         moodList.add(new MoodDataStorage(3,"Il y a 5 jours"));
         moodList.add(new MoodDataStorage(4,"Il y a 4 jours"));
@@ -68,7 +68,7 @@ public class HistoryActivity extends MainActivity implements AdapterView.OnItemC
 
 
 
-        lAdapter = new MoodAdapter(this,moodList);
+        lAdapter = new MoodAdapter(this,mListView);*/
         mListView.setAdapter(lAdapter);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy ");
@@ -82,20 +82,19 @@ public class HistoryActivity extends MainActivity implements AdapterView.OnItemC
             date = cal.getTime();
             days[i] = sdf.format(date);
         }
-            String monGson = settings.getString(String.valueOf(date), null);
+        String monGson = settings.getString(String.valueOf(date), null);
 
-            if (monGson != null) {
-                mood = new MoodDataStorage();
-                Type type = new TypeToken<MoodDataStorage>() {
-                }.getType();
-                mood = gson.fromJson(monGson, type);
-                Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
-                moodList.add(new MoodDataStorage(mood.getCouleur(), mood.getCommentaire()));
+        if (monGson != null) {
+            moodList = new ArrayList<>();
+            Type type = new TypeToken<MoodDataStorage>() {
+            }.getType();
+            moodList = gson.fromJson(monGson, type);
+            Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
+            moodList.add(new MoodDataStorage(MoodList.getColor(), MoodList.getComment()));
 
-            }
         }
+    }
 
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView listView = (ListView) parent.getAdapter().getItem(position);
         Intent intent = new Intent(HistoryActivity.this, MoodDataStorage.class);
@@ -104,4 +103,3 @@ public class HistoryActivity extends MainActivity implements AdapterView.OnItemC
         startActivity(intent);
     }
 }
-
