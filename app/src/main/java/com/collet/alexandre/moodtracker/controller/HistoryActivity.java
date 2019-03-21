@@ -1,25 +1,29 @@
 package com.collet.alexandre.moodtracker.controller;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.collet.alexandre.moodtracker.R;
+import com.collet.alexandre.moodtracker.model.MoodList;
+import com.collet.alexandre.moodtracker.view.MoodAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import com.collet.alexandre.moodtracker.model.MoodList;
-import com.collet.alexandre.moodtracker.view.MoodAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.util.Date;
 
 public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -43,7 +47,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         MoodList mood;
         Gson gson = new Gson();
 
-        mListView = (ListView) findViewById(R.id.moodListXml);
+        mListView = findViewById(R.id.moodListXml);
         ArrayList<MoodList> moodList = new ArrayList<>();
 
         String sDate;
@@ -60,7 +64,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
                 }.getType();
                 mood = gson.fromJson(monGson, type);
                 Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
-                moodList.add(new MoodList(mood.getColor(), mood.getComment()));
+                moodList.add(new MoodList(MoodList.getColor(), MoodList.getComment(), MoodList.getDate(i)));
             }
         }
         lAdapter = new MoodAdapter(this,moodList);

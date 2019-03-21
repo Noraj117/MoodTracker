@@ -8,10 +8,11 @@
     tools:context="com.collet.alexandre.moodtracker.controller.HistoryActivity">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/moodListXml"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"/>
 
 </RelativeLayout>

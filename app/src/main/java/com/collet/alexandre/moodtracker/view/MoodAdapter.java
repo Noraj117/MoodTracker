@@ -37,11 +37,11 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
 
         MoodList moodList = mMoodList.get(position);
 
-        TextView txtColor = (TextView) listItem.findViewById(R.id.item_history_toast);
-        txtColor.setText (moodList.getColor()+"");
+        RelativeLayout txtColor = listItem.findViewById(R.id.item_history_layout);
+        txtColor.setBackgroundColor(MoodList.getColor());
 
-        TextView txtComment = (TextView) listItem.findViewById(R.id.item_history_text);
-        txtComment.setText(moodList.getComment());
+        TextView txtComment = listItem.findViewById(R.id.item_history_text);
+        txtComment.setText(MoodList.getDate(position));
 
 
         // Get the Layout parameters for ListView Current Item View
