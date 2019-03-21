@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 String monGson = gson.toJson(mood);
 
                 Date date = new Date();
-                String maDateFormatee = new SimpleDateFormat("dd/MM:yyyy").format(date);
+                String maDateFormatee = new SimpleDateFormat("dd/MM/yyyy").format(date);
 
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

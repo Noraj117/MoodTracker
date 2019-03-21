@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.collet.alexandre.moodtracker.R;
-import com.collet.alexandre.moodtracker.controller.HistoryActivity;
 import com.collet.alexandre.moodtracker.model.MoodList;
 
 import java.util.ArrayList;
@@ -21,31 +20,31 @@ import java.util.List;
 public class MoodAdapter extends ArrayAdapter<MoodList>  {
 
     private Context mContext;
-    private List<MoodList> mMoodList = new ArrayList<MoodList>();
+    private List<MoodList> mMoodList = new ArrayList<>();
 
     public MoodAdapter(@NonNull Context context, ArrayList<MoodList> moodList ) {
         super(context,0, moodList);
         mContext = context;
-        mMoodList = (ArrayList<MoodList>) moodList;
+        mMoodList = moodList;
 
     }
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null)
-            listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, true);
+            listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
-        MoodList MoodList = mMoodList.get(position);
+        MoodList moodList = mMoodList.get(position);
 
         TextView txtColor = (TextView) listItem.findViewById(R.id.item_history_toast);
-        txtColor.setText (MoodList.getColor());
+        txtColor.setText (moodList.getColor()+"");
 
         TextView txtComment = (TextView) listItem.findViewById(R.id.item_history_text);
-        txtComment.setText(MoodList.getComment());
+        txtComment.setText(moodList.getComment());
 
 
-        // Get the Layout Parameters for ListView Current Item View
+        // Get the Layout parameters for ListView Current Item View
         ViewGroup.LayoutParams params = listItem.getLayoutParams();
 
         // Set the height of the Item View
