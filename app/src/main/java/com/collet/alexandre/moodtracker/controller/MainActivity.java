@@ -15,37 +15,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;;
-
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
 
 import com.collet.alexandre.moodtracker.R;
-import com.collet.alexandre.moodtracker.model.MoodDataStorage;
 import com.collet.alexandre.moodtracker.model.MoodList;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,28 +89,24 @@ public class MainActivity extends AppCompatActivity {
     private void addComment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        final EditText comment = new EditText(MainActivity.this);
+        final EditText commentaire = new EditText(MainActivity.this);
 
         builder.setMessage(R.string.strCommentaire);
-        builder.setView(comment);
+        builder.setView(commentaire);
         builder.setPositiveButton(R.string.strValider, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                String monCommentaireSaisi = comment.getText().toString();
+                String monCommentaireSaisi = commentaire.getText().toString();
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
                 MoodList mood = new MoodList();
-                mood.setmComment(monCommentaireSaisi);
-                mood.setmColor(color);
+                mood.setComment(monCommentaireSaisi);
+                mood.setColor(color);
 
                 Gson gson = new Gson();
 
                 String monGson = gson.toJson(mood);
-
-               /* Set<String> set = new HashSet<String>();
-                set.add(color + "");
-                set.add(monCommentaireSaisi);*/
 
                 Date date = new Date();
                 String maDateFormatee = new SimpleDateFormat("dd/MM:yyyy").format(date);

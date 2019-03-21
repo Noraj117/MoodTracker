@@ -4,4 +4,5 @@
     <string name="strValider">Valider</string>
     <string name="toast_text">toast_text</string>
     <string name="comment_icon">comment_icon</string>
+    <string name="strComment" />
 </resources>

@@ -1,73 +1,33 @@
 package com.collet.alexandre.moodtracker.model;
 
 public class MoodList {
-    private static int mColor;
-    private int mSmileyValue;
-    private static String mComment;
-    private int mIconComment;
-    private String mDate;
+    private static int Color;
+    private static String Comment;
 
-    public MoodList(int color, int smileyValue, String comment, int iconComment, String date) {
-        mColor = color;
-        mSmileyValue = smileyValue;
-        mComment = comment;
-        mIconComment = iconComment;
-        mDate = date;
+    public MoodList(int color, String comment) {
+        Color = color;
+        Comment = comment;
+
     }
 
     public MoodList() {
-
     }
 
     public static int getColor() {
-        return mColor;
+        return Color;
     }
 
-    public int getSmileyValue() {
-        return mSmileyValue;
+    public static void setColor(int color) {
+        Color = color;
     }
 
     public static String getComment() {
-        return mComment;
+        return Comment;
     }
 
-    public int getIconComment() {
-        return mIconComment;
+    public static void setComment(String comment) {
+        Comment = comment;
     }
 
-    public String getDate() {
-        return mDate;
-    }
-
-    public static void setmColor(int mColor) {
-        MoodList.mColor = mColor;
-    }
-
-    public void setSmileyValue(int smileyValue) {
-        mSmileyValue = smileyValue;
-    }
-
-    public static void setmComment(String mComment) {
-        MoodList.mComment = mComment;
-    }
-
-    public void setIconComment(int iconComment) {
-        mIconComment = iconComment;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
-    public String getDate(int value) {
-        String dayTab[] = {"Hier", "Avant-hier",
-                "trois jours", "quatre jours", "cinq jours", "six jours", "une semaine"};
-        mDate = dayTab[value];
-
-        if (value >= 2)
-            return "Il y a " + mDate;
-
-        return mDate;
-    }
 
 }
