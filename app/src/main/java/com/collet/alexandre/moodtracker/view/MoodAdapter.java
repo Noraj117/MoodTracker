@@ -19,8 +19,9 @@ import java.util.List;
 
 public class MoodAdapter extends ArrayAdapter<MoodList>  {
 
+    public static final int NUMBER_ITEM = 8;
     private Context mContext;
-    private List<MoodList> mMoodList = new ArrayList<>();
+    private List<MoodList> mMoodList;
 
     public MoodAdapter(@NonNull Context context, ArrayList<MoodList> moodList ) {
         super(context,0, moodList);
@@ -28,12 +29,16 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
         mMoodList = moodList;
 
     }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null)
             listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        listItem.getLayoutParams().height = parent.getHeight() / 7;
+        if (mMoodList.size() == NUMBER_ITEM)
+            mMoodList.remove(0);
 
         MoodList moodList = mMoodList.get(position);
 
@@ -48,6 +53,7 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
         ViewGroup.LayoutParams params = listItem.getLayoutParams();
 
         // Set the height of the Item View
+
         params.height = 298;
         listItem.setLayoutParams(params);
 

@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCommentBtn = (ImageButton) findViewById(R.id.main_activity_comment);
-        mHistoryBtn = (ImageButton) findViewById(R.id.main_activity_history);
-        mSmileyBtn = (ImageView) findViewById(R.id.main_activity_img);
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.main_activity_layout_background);
+        mCommentBtn = findViewById(R.id.main_activity_comment);
+        mHistoryBtn = findViewById(R.id.main_activity_history);
+        mSmileyBtn = findViewById(R.id.main_activity_img);
+        mRelativeLayout = findViewById(R.id.main_activity_layout_background);
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
         mCommentBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
                 MoodList mood = new MoodList();
-                mood.setComment(monCommentaireSaisi);
-                mood.setColor(color);
+                MoodList.setComment(monCommentaireSaisi);
+                MoodList.setColor(color);
 
                 Gson gson = new Gson();
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(maDateFormatee, monGson);
-                editor.commit();
+                editor.apply();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
