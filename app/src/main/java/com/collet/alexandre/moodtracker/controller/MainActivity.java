@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
                 MoodList mood = new MoodList();
-                MoodList.setComment(monCommentaireSaisi);
-                MoodList.setColor(color);
+                mood.setComment(monCommentaireSaisi);
+                mood.setColor(color);
 
                 Gson gson = new Gson();
 
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Date date = new Date();
                 String maDateFormatee = new SimpleDateFormat("dd/MM/yyyy").format(date);
+
 
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

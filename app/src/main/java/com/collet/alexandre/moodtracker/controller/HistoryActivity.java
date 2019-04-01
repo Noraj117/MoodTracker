@@ -26,8 +26,7 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-
-    private static Object Date;
+    private MoodList mood;
     private ListView mListView;
     private MoodAdapter lAdapter;
     public static final int[][] LIST_COLOR = {
@@ -51,39 +50,21 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
 
         String sDate;
         LocalDate date;
-
-        for (int i = 0; i < 7; i++) {
+        moodList = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
             date = LocalDate.now(ZoneId.of("Europe/Paris")).minusDays(i);
-            sDate = date.format(DateTimeFormatter.ofPattern("d/MM/YYYY"));
+            sDate = date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
             String monGson = settings.getString(sDate, null);
             if (monGson != null) {
                 mood = new MoodList();
-                moodList = new ArrayList<>();
                 Type type = new TypeToken<MoodList>() {
                 }.getType();
                 mood = gson.fromJson(monGson, type);
-                moodList.add(new MoodList(MoodList.getColor(), MoodList.getComment(), MoodList.getDate(i)));
+                moodList.add(new MoodList(mood.getColor(), mood.getComment(), mood.getDate(1)));
             }
         }
         lAdapter = new MoodAdapter(this, moodList);
         mListView.setAdapter(lAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = MoodList.getComment();
-                LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.custom_toast,
-                        (ViewGroup) findViewById(R.id.custom_toast_container));
-                TextView toastText = layout.findViewById(R.id.text);
-                toastText.setText(text);
-                Toast toast = new Toast(getApplicationContext());
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-
-
-            }
-        });
     }
 
     @Override

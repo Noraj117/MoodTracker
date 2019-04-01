@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.collet.alexandre.moodtracker.R;
 import com.collet.alexandre.moodtracker.model.MoodList;
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class MoodAdapter extends ArrayAdapter<MoodList>  {
 
-    public static final int NUMBER_ITEM = 8;
     private Context mContext;
     private List<MoodList> mMoodList;
 
@@ -32,29 +32,33 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null)
             listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        listItem.getLayoutParams().height = parent.getHeight() / 7;
-        if (mMoodList.size() == NUMBER_ITEM)
-            mMoodList.remove(0);
 
-        MoodList moodList = mMoodList.get(position);
+
+        final MoodList moodList = mMoodList.get(position);
 
         RelativeLayout txtColor = listItem.findViewById(R.id.item_history_layout);
-        txtColor.setBackgroundColor(MoodList.getColor());
+        txtColor.setBackgroundColor(moodList.getColor());
 
         TextView txtComment = listItem.findViewById(R.id.item_history_text);
-        txtComment.setText(MoodList.getDate(position));
+        txtComment.setText(moodList.getDate(position));
 
+        listItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), moodList.getComment(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Get the Layout parameters for ListView Current Item View
         ViewGroup.LayoutParams params = listItem.getLayoutParams();
 
         // Set the height of the Item View
 
-        params.height = 298;
+        params.height = 325;
         listItem.setLayoutParams(params);
 
         return listItem;
