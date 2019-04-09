@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private MoodList mood;
-    private ListView mListView;
     private MoodAdapter lAdapter;
     public static final int[][] LIST_COLOR = {
             {R.color.faded_red,
@@ -49,6 +48,9 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         ListView mListView = findViewById(R.id.listview);
         ArrayList<MoodList> moodList = new ArrayList<>();
 
+        /*
+        This method set the date to match with the last seven days history and the comment stored.
+         */
         String sDate;
         LocalDate date;
         moodList = new ArrayList<>();
@@ -67,7 +69,9 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         lAdapter = new MoodAdapter(this, moodList);
         mListView.setAdapter((ListAdapter) lAdapter);
     }
-
+/*
+Method for capture click on the custom listview.
+ */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

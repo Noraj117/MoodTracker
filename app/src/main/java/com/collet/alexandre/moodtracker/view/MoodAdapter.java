@@ -49,6 +49,10 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
         txtComment.setText(moodList.getDate(position));
 
         listItem.setOnClickListener(new View.OnClickListener() {
+
+            /*
+            Method used to get the comment stored in SharedPreferences and show it in toast message when user click on.
+             */
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), moodList.getComment(), Toast.LENGTH_SHORT).show();

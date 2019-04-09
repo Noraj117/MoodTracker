@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
     /*
-    This method is for add comment and color of the actual mood, and save it in SharedPreferences.
+    This method is for add comment and color of the actual mood, and save it in SharedPreferences with Gson library.
      */
     private void addComment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 String myGson = gson.toJson(mood);
 
                 Date date = new Date();
-               /* String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);*/
-                String myFormatedDate = ("04/04/2019");
+                String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+
 
 
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
@@ -140,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        /*
+        This method is set to swipe on the screen. It get the positions of event1 and event2.
+         */
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
@@ -163,7 +166,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
-
+    /*
+     * This method allow you to add sound from raw folder in app with MediaPlayer.
+     */
     public void getSound(int sound){
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, sound);
         mediaPlayer.start();
