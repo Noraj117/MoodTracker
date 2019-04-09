@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,17 +55,17 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         for (int i = 1; i <= 8; i++) {
             date = LocalDate.now(ZoneId.of("Europe/Paris")).minusDays(i);
             sDate = date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
-            String monGson = settings.getString(sDate, null);
-            if (monGson != null) {
+            String myGson = settings.getString(sDate, null);
+            if (myGson != null) {
                 mood = new MoodList();
                 Type type = new TypeToken<MoodList>() {
                 }.getType();
-                mood = gson.fromJson(monGson, type);
+                mood = gson.fromJson(myGson, type);
                 moodList.add(new MoodList(mood.getColor(), mood.getComment(), mood.getDate(1)));
             }
         }
         lAdapter = new MoodAdapter(this, moodList);
-        mListView.setAdapter(lAdapter);
+        mListView.setAdapter((ListAdapter) lAdapter);
     }
 
     @Override

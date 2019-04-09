@@ -1,5 +1,11 @@
 package com.collet.alexandre.moodtracker.model;
 
+
+/*
+Base methods for view and adapter.
+We store and save values from comment, color and date.
+ */
+
 public class MoodList {
     private int Color;
     private String Comment;
@@ -23,7 +29,7 @@ public class MoodList {
         Color = color;
     }
 
-    public String getComment() {
+    public  String getComment() {
         return Comment;
     }
 

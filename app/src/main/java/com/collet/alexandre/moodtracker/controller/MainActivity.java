@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
     /*
-    This method is for add a comment of the actual mood
+    This method is for add comment and color of the actual mood, and save it in SharedPreferences.
      */
     private void addComment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -94,27 +94,31 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(R.string.strCommentaire);
         builder.setView(commentaire);
         builder.setPositiveButton(R.string.strValider, new DialogInterface.OnClickListener() {
+            /*
+            Method for intercept click, and comment in the SharedPreferences, using Gson library.
+             */
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                String monCommentaireSaisi = commentaire.getText().toString();
+                String myComment = commentaire.getText().toString();
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
                 MoodList mood = new MoodList();
-                mood.setComment(monCommentaireSaisi);
+                mood.setComment(myComment);
                 mood.setColor(color);
 
                 Gson gson = new Gson();
 
-                String monGson = gson.toJson(mood);
+                String myGson = gson.toJson(mood);
 
                 Date date = new Date();
-                String maDateFormatee = new SimpleDateFormat("dd/MM/yyyy").format(date);
+               /* String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);*/
+                String myFormatedDate = ("04/04/2019");
 
 
                 SharedPreferences sharedPreferences = getSharedPreferences("humeurFile", 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(maDateFormatee, monGson);
+                editor.putString(myFormatedDate, myGson);
                 editor.apply();
             }
         });

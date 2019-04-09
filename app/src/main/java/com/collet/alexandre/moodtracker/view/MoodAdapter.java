@@ -29,7 +29,9 @@ public class MoodAdapter extends ArrayAdapter<MoodList>  {
         mMoodList = moodList;
 
     }
-
+    /*
+    Method for inflate custom view for the ListView.
+     */
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
