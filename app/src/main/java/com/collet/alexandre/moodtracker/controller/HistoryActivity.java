@@ -54,7 +54,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
         String sDate;
         LocalDate date;
         moodList = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 7; i++) {
             date = LocalDate.now(ZoneId.of("Europe/Paris")).minusDays(i);
             sDate = date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
             String myGson = settings.getString(sDate, null);

@@ -21,6 +21,7 @@ public class MoodList {
     public MoodList() {
     }
 
+
     public int getColor() {
         return Color;
     }

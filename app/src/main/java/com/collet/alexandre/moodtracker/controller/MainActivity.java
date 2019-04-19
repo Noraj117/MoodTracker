@@ -1,5 +1,8 @@
 package com.collet.alexandre.moodtracker.controller;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,13 +21,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-
-
 import com.collet.alexandre.moodtracker.R;
 import com.collet.alexandre.moodtracker.model.MoodList;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
                     R.drawable.smiley_happy,
                     R.drawable.smiley_super_happy}};
     private static final int SWIPE_MIN_DISTANCE = 150;
-    private int index = 3;
+    public static int index = 3;
     private GestureDetectorCompat mDetector;
-
     private ImageButton mCommentBtn;
     private ImageButton mHistoryBtn;
     private ImageView mSmileyBtn;
@@ -89,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
     private void addComment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        final EditText commentaire = new EditText(MainActivity.this);
+        final EditText comment = new EditText(MainActivity.this);
 
         builder.setMessage(R.string.strCommentaire);
-        builder.setView(commentaire);
+        builder.setView(comment);
         builder.setPositiveButton(R.string.strValider, new DialogInterface.OnClickListener() {
             /*
             Method for intercept click, and comment in the SharedPreferences, using Gson library.
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                String myComment = commentaire.getText().toString();
+                String myComment = comment.getText().toString();
                 int color = ((ColorDrawable) mRelativeLayout.getBackground()).getColor();
 
                 MoodList mood = new MoodList();
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Date date = new Date();
                 String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+               /* String myFormatedDate = "07/04/2019";*/
 
 
 
@@ -173,4 +175,27 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, sound);
         mediaPlayer.start();
     }
+
+    private void AlarmMidnight(Context context) {
+
+        AlarmManager alarmManager;
+        PendingIntent pendingIntent;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DATE, 1);
+
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, MyBroadcastReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+    }
+
+
 }
